@@ -206,6 +206,78 @@ WCheckBox.showMnemonics=true
 WCheckBox.textShiftOffset=0
 ```
 
+## Recomendações de Uso
+
+### Validação de Seleção
+```java
+// Verificar se o checkbox foi marcado
+if (checkBoxTermos.isSelected()) {
+    // Continuar com o cadastro
+} else {
+    checkBoxTermos.mostrarErro("Você precisa aceitar os termos para continuar");
+    return;
+}
+```
+
+### Agrupamento de Checkboxes
+```java
+// Criar grupo de checkboxes relacionados
+List<WCheckBox> checkBoxes = Arrays.asList(
+    new WCheckBox("Opção 1"),
+    new WCheckBox("Opção 2"),
+    new WCheckBox("Opção 3")
+);
+
+// Verificar se pelo menos uma opção foi selecionada
+boolean algumaSelecionada = checkBoxes.stream()
+    .anyMatch(AbstractButton::isSelected);
+
+if (!algumaSelecionada) {
+    checkBoxes.get(0).mostrarErro("Selecione pelo menos uma opção");
+}
+```
+
+## Boas Práticas
+
+1. **Rótulos Claros**
+   ```java
+   // ❌ Evitar
+   WCheckBox cb = new WCheckBox("Aceito");
+   
+   // ✅ Preferir
+   WCheckBox cbTermos = new WCheckBox("Li e aceito os termos de uso");
+   ```
+
+2. **Agrupamento Lógico**
+   ```java
+   // Agrupar checkboxes relacionados visualmente
+   JPanel painelOpcoes = new JPanel();
+   painelOpcoes.setBorder(BorderFactory.createTitledBorder("Preferências de Notificação"));
+   painelOpcoes.add(new WCheckBox("Receber e-mails"));
+   painelOpcoes.add(new WCheckBox("Notificações por SMS"));
+   painelOpcoes.add(new WCheckBox("Notificações push"));
+   ```
+
+3. **Acessibilidade**
+   ```java
+   // Melhorando acessibilidade
+   checkBox.getAccessibleContext().setAccessibleName("Termos de Uso");
+   checkBox.getAccessibleContext().setAccessibleDescription("Marque para aceitar os termos de uso");
+   checkBox.setMnemonic(KeyEvent.VK_T); // Atalho Alt+T
+   ```
+
+4. **Tratamento de Estado**
+   ```java
+   // Atualizar interface baseado no estado do checkbox
+   checkBox.addActionListener(e -> {
+       boolean selecionado = checkBox.isSelected();
+       btnAvançar.setEnabled(selecionado);
+       if (selecionado) {
+           checkBox.limparMensagem();
+       }
+   });
+   ```
+
 ## Requisitos
 
 ### Versão Mínima do Java

@@ -319,6 +319,100 @@ WPasswordField.successBorderColor=#198754
 WPasswordField.showButton.iconColor=#6C757D
 ```
 
+## Recomendações de Uso
+
+### Validação de Força de Senha
+```java
+private boolean validarForcaSenha(char[] senha) {
+    if (senha.length < 8) {
+        campoSenha.mostrarErro("A senha deve ter no mínimo 8 caracteres");
+        return false;
+    }
+    
+    // Verificar se contém números
+    boolean temNumero = new String(senha).matches(".*\\d.*");
+    // Verificar se contém letras maiúsculas
+    boolean temMaiuscula = !new String(senha).equals(new String(senha).toLowerCase());
+    
+    if (!temNumero || !temMaiuscula) {
+        campoSenha.mostrarErro("A senha deve conter números e letras maiúsculas");
+        return false;
+    }
+    
+    return true;
+}
+```
+
+### Segurança
+```java
+// Sempre limpar o array de senha após o uso
+char[] senha = campoSenha.getPassword();
+try {
+    // Processar a senha
+    if (validarCredenciais(usuario, senha)) {
+        // Login bem-sucedido
+    }
+} finally {
+    // Limpar a senha da memória
+    Arrays.fill(senha, '\0');
+}
+```
+
+## Boas Práticas
+
+1. **Nunca armazenar senhas em texto simples**
+   ```java
+   // ❌ Perigoso
+   String senhaTexto = new String(campoSenha.getPassword());
+   // ✅ Seguro
+   char[] senha = campoSenha.getPassword();
+   try {
+       // Usar a senha
+   } finally {
+       Arrays.fill(senha, '\0');
+   }
+   ```
+
+2. **Confirmação de Senha**
+   ```java
+   private boolean validarConfirmacaoSenha() {
+       if (!Arrays.equals(campoSenha.getPassword(), campoConfirmacao.getPassword())) {
+           campoConfirmacao.mostrarErro("As senhas não conferem");
+           return false;
+       }
+       return true;
+   }
+   ```
+
+3. **Feedback Visual**
+   ```java
+   // Mostrar força da senha em tempo real
+   campoSenha.getDocument().addDocumentListener(new DocumentListener() {
+       public void changedUpdate(DocumentEvent e) { atualizarForcaSenha(); }
+       public void removeUpdate(DocumentEvent e) { atualizarForcaSenha(); }
+       public void insertUpdate(DocumentEvent e) { atualizarForcaSenha(); }
+       
+       private void atualizarForcaSenha() {
+           int forca = calcularForcaSenha(campoSenha.getPassword());
+           if (forca < 2) {
+               campoSenha.setLineColor(Color.RED);
+           } else if (forca < 4) {
+               campoSenha.setLineColor(Color.ORANGE);
+           } else {
+               campoSenha.setLineColor(Color.GREEN);
+           }
+       }
+   });
+   ```
+
+4. **Acessibilidade**
+   ```java
+   // Melhorando acessibilidade
+   campoSenha.getAccessibleContext().setAccessibleName("Senha");
+   campoSenha.getAccessibleContext().setAccessibleDescription("Digite sua senha");
+   campoSenha.setMnemonic(KeyEvent.VK_S); // Atalho Alt+S
+   ```
+
 ## Requisitos
 
 ### Versão Mínima do Java
@@ -366,7 +460,8 @@ WPasswordField.showButton.iconColor=#6C757D
 - **Repositório**: [DJ-Raven/raven-project](https://github.com/DJ-Raven/raven-project)
 - **Licença**: [MIT License](LICENSE)
 
-### Melhorias e Manutenção
+- **Animações**: Implementação de transições suaves
+- **Temas**: Suporte a temas claros e escuros
 - **Migração para Trident**: Atualização do sistema de animações
 - **Sistema de Mensagens**: Feedback visual para validações
 - **Validação Integrada**: Suporte a campos obrigatórios e validações personalizadas
@@ -374,3 +469,4 @@ WPasswordField.showButton.iconColor=#6C757D
 
 ### Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
+o bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

@@ -249,6 +249,70 @@ WButton.minimumWidth=75
 WButton.minimumHeight=30
 ```
 
+## Recomendações de Uso
+
+### Validação de Formulários
+```java
+// Exemplo de validação antes de submeter
+if (botao.isEnabled()) {
+    // Executar ação apenas se o botão estiver habilitado
+    acaoPrincipal();
+} else {
+    // Fornecer feedback visual
+    JOptionPane.showMessageDialog(null, 
+        "Preencha todos os campos obrigatórios", 
+        "Validação", 
+        JOptionPane.WARNING_MESSAGE);
+}
+```
+
+### Personalização Avançada
+```java
+// Configuração de cores personalizadas
+botao.setBackground(new Color(33, 150, 243)); // Azul Material Design
+botao.setForeground(Color.WHITE);
+botao.setHoverColor(new Color(25, 118, 210)); // Azul mais escuro no hover
+
+// Adicionar ícone
+botao.setIcon(new ImageIcon("caminho/para/icone.png"));
+botao.setIconTextGap(8); // 8px de espaço entre ícone e texto
+```
+
+### Acessibilidade
+```java
+// Melhorando acessibilidade
+botao.getAccessibleContext().setAccessibleName("Botão de envio");
+botao.getAccessibleContext().setAccessibleDescription("Clique para enviar o formulário");
+botao.setMnemonic(KeyEvent.VK_E); // Atalho Alt+E
+```
+
+## Boas Práticas
+
+1. **Sempre defina textos descritivos**
+   ```java
+   // ❌ Evitar
+   WButton btn = new WButton("Clique");
+   
+   // ✅ Preferir
+   WButton btnSalvar = new WButton("Salvar Alterações");
+   btnSalvar.setToolTipText("Clique para salvar as alterações no banco de dados");
+   ```
+
+2. **Controle de Estado**
+   ```java
+   // Desabilitar botão durante processamento
+   btnProcessar.setEnabled(false);
+   new SwingWorker<Void, Void>() {
+       protected Void doInBackground() {
+           // Processamento demorado
+           return null;
+       }
+       protected void done() {
+           btnProcessar.setEnabled(true);
+       }
+   }.execute();
+   ```
+
 ## Requisitos
 
 ### Versão Mínima do Java

@@ -232,6 +232,81 @@ WTextField.lineBgColor=#C8C8C8     # Linha normal
 WTextField.errorColor=#dc3545      # Erro
 WTextField.successColor=#28a745    # Sucesso
 ```
+## Recomendações de Uso
+
+### Validação de Formulários
+```java
+// Exemplo de validação em cascata
+if (!campoNome.validar()) return;
+if (!campoEmail.validar()) return;
+if (!campoSenha.validar()) return;
+
+// Se todas as validações passarem
+salvarDados();
+```
+
+### Máscaras de Entrada
+```java
+// Aplicar máscara para CPF
+campoCPF.setDocument(new FixedLengthDocument(11)); // Apenas números
+campoCPF.addKeyListener(new KeyAdapter() {
+    public void keyReleased(KeyEvent e) {
+        String text = campoCPF.getText().replaceAll("[^0-9]", "");
+        if (text.length() == 11) {
+            campoCPF.setText(
+                text.substring(0, 3) + "." +
+                text.substring(3, 6) + "." +
+                text.substring(6, 9) + "-" +
+                text.substring(9)
+            );
+        }
+    }
+});
+```
+
+## Boas Práticas
+
+1. **Validação em Tempo Real**
+   ```java
+   // Validar e-mail enquanto digita
+   campoEmail.getDocument().addDocumentListener(new DocumentListener() {
+       public void changedUpdate(DocumentEvent e) { validarEmail(); }
+       public void removeUpdate(DocumentEvent e) { validarEmail(); }
+       public void insertUpdate(DocumentEvent e) { validarEmail(); }
+       
+       private void validarEmail() {
+           String email = campoEmail.getText();
+           if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+               campoEmail.mostrarErro("Formato de e-mail inválido");
+           } else {
+               campoEmail.limparMensagem();
+           }
+       }
+   });
+   ```
+
+2. **Foco Automático**
+   ```java
+   // Focar automaticamente no primeiro campo
+   SwingUtilities.invokeLater(() -> campoNome.requestFocusInWindow());
+   ```
+
+3. **Navegação por Teclado**
+   ```java
+   // Permitir navegação por Tab/Shift+Tab
+   campo1.setNextFocusableComponent(campo2);
+   campo2.setNextFocusableComponent(campo3);
+   // ...
+   ```
+
+4. **Acessibilidade**
+   ```java
+   // Melhorando acessibilidade
+   campoNome.getAccessibleContext().setAccessibleName("Nome completo");
+   campoNome.getAccessibleContext().setAccessibleDescription("Digite seu nome completo");
+   campoNome.setMnemonic(KeyEvent.VK_N); // Atalho Alt+N
+   ```
+
 ## Requisitos
 
 ### Versão Mínima do Java
@@ -277,6 +352,8 @@ WTextField.successColor=#28a745    # Sucesso
 - **Licença**: [MIT License](LICENSE)
 
 ### Melhorias e Manutenção
+- **Animações**: Implementação de transições suaves
+- **Temas**: Suporte a temas claros e escuros
 - **Migração para Trident**: Atualização do sistema de animações
 - **Sistema de Mensagens**: Feedback visual para validações
 - **Validação Integrada**: Suporte a campos obrigatórios e validações personalizadas

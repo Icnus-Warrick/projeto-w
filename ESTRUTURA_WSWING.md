@@ -30,17 +30,54 @@ br.com.warrick.swing
 ```java
 /**
  * NomeDaClasse - Descrição breve do componente
- * 
+ *
+ * <p>Descrição mais detalhada do componente, incluindo seu propósito
+ * e funcionalidades principais.</p>
+ *
+ * <p>Para documentação completa, consulte:
+ * <a href="docs/NomeDaClasse.md">Documentação Detalhada</a></p>
+ *
  * @author Nome do Desenvolvedor
  * @version 1.0.0
  * @since 23/11/2025
- * 
- * @see Classes relacionadas
- * @deprecated (se aplicável)
+ * @see JComponent
+ * @see OutraClasseRelacionada
  */
 ```
 
-### 2.2 Histórico de Alterações
+### 2.2 Exemplo Prático (WTextField)
+```java
+/**
+ * Componente de campo de texto personalizado com suporte a animações, rótulo flutuante e validação.
+ *
+ * <p>Esta classe estende JTextField para fornecer um campo de texto com
+ * rótulo flutuante, feedback visual consistente e sistema de validação integrado.</p>
+ *
+ * <p>Para documentação completa, consulte:
+ * <a href="docs/WTextField.md">Documentação Detalhada</a></p>
+ *
+ * @author Warrick
+ * @version 3.2.2
+ * @since 25/11/2025
+ * @see JTextField
+ */
+```
+
+### 2.3 Documentação de Métodos
+```java
+/**
+ * Define se o campo é obrigatório.
+ * 
+ * @param obrigatorio true para marcar o campo como obrigatório,
+ *                   false caso contrário
+ * @since 1.0.0
+ */
+public void setObrigatorio(boolean obrigatorio) {
+    this.obrigatorio = obrigatorio;
+}
+```
+
+### 2.4 Histórico de Alterações
 ```java
 /**
  * Histórico de Alterações:
