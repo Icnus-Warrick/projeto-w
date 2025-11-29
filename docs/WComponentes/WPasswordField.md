@@ -460,6 +460,12 @@ try {
 - **Repositório**: [DJ-Raven/raven-project](https://github.com/DJ-Raven/raven-project)
 - **Licença**: [MIT License](LICENSE)
 
+### Atualizado por
+- **Autor**: Warrick
+- **Repositório**: [Icnus-Warrick/projeto-w](https://github.com/Icnus-Warrick/projeto-w)
+- **Licença**: [MIT License](LICENSE)
+
+### Melhorias e Manutenção
 - **Animações**: Implementação de transições suaves
 - **Temas**: Suporte a temas claros e escuros
 - **Migração para Trident**: Atualização do sistema de animações
@@ -467,6 +473,13 @@ try {
 - **Validação Integrada**: Suporte a campos obrigatórios e validações personalizadas
 - **Documentação**: Criação e manutenção da documentação
 
+## Links Úteis
+
+- [Documentação Java Swing - JPasswordField](https://docs.oracle.com/javase/8/docs/api/javax/swing/JPasswordField.html)
+- [FlatLaf - Text Components](https://www.formdev.com/flatlaf/components/#text-fields)
+- [Java Tutorial - How to Use Password Fields](https://docs.oracle.com/javase/tutorial/uiswing/components/passwordfield.html)
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [Material Design - Text Fields](https://material.io/components/text-fields)
+
 ### Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
-o bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

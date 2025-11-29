@@ -299,6 +299,24 @@ public class WTextField extends JTextField {
      */
     protected Timeline errorTimeline;
 
+    /**
+     * Indica se a cor da linha foi definida manualmente (via IDE ou código).
+     */
+    private boolean lineColorSet = false;
+
+    /**
+     * Indica se a cor de hover foi definida manualmente (via IDE ou código).
+     */
+    private boolean hoverColorSet = false;
+
+    /**
+     * Indica se deve usar as cores do tema FlatLaf.
+     * Se true, as cores do tema têm prioridade sobre cores definidas manualmente.
+     * Se false, as cores definidas manualmente têm prioridade.
+     */
+    private boolean usarCoresTema = false;
+
+
     // ============================================ CONSTRUTORES ============================================
     /**
      * Cria um novo campo de texto com rótulo vazio.

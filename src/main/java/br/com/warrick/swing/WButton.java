@@ -79,8 +79,8 @@ public class WButton extends JButton {
     /** Duração da animação em milissegundos */
     protected static final int ANIMATION_DURATION = 300;
 
-    /** Fator de escala máximo do texto (1.0 = normal, 1.15 = 15% maior) */
-    protected static final float MAX_TEXT_SCALE = 1.15f;
+    /** Fator de escala máximo do texto (1.0 = normal, 1.10 = 10% maior) */
+    protected static final float MAX_TEXT_SCALE = 1.10f;
 
     // ============================================ ATRIBUTOS ============================================
 
@@ -302,17 +302,29 @@ public class WButton extends JButton {
 
         // Desenha a linha de destaque (hover ou pressionado)
         if (mouseOver || pressed) {
-            Color currentLineColor = pressed ? 
-                getThemeColor("WButton.lineColor", lineColor) : 
-                getThemeColor("WButton.hoverColor", hoverColor);
-                
+            Color currentLineColor;
+            
+            if (pressed) {
+                // Escurece a cor da linha em 20% quando pressionado
+                Color pressedLineColor = getThemeColor("WButton.lineColor", lineColor);
+                currentLineColor = new Color(
+                    Math.max((int)(pressedLineColor.getRed() * 0.8), 0),
+                    Math.max((int)(pressedLineColor.getGreen() * 0.8), 0),
+                    Math.max((int)(pressedLineColor.getBlue() * 0.8), 0)
+                );
+            } else {
+                currentLineColor = getThemeColor("WButton.hoverColor", hoverColor);
+            }
+            
             g2.setColor(currentLineColor);
 
             // Calcula a largura da linha baseada na animação
             int lineWidth = (int) ((width - 4) * lineAnimationProgress);
             int lineX = 2 + (width - 4 - lineWidth) / 2; // Centraliza a linha
 
-            g2.fillRect(lineX, lineY - (LINE_HEIGHT / 2), lineWidth, LINE_HEIGHT);
+            // Aumenta ligeiramente a espessura da linha quando pressionado
+            int lineHeight = pressed ? LINE_HEIGHT + 1 : LINE_HEIGHT;
+            g2.fillRect(lineX, lineY - (lineHeight / 2), lineWidth, lineHeight);
         }
     }
 
@@ -335,16 +347,28 @@ public class WButton extends JButton {
             textColor = getThemeColor("Button.disabledText", Color.GRAY);
         }
         
-        // Se estiver com o mouse sobre o botão, pode aplicar um efeito de brilho
-        if (mouseOver && isEnabled()) {
+        // Aplica cor mais escura se o botão estiver pressionado
+        if (pressed && isEnabled()) {
+            // Escurece a cor em 20%
+            textColor = new Color(
+                Math.max((int)(textColor.getRed() * 0.8), 0),
+                Math.max((int)(textColor.getGreen() * 0.8), 0),
+                Math.max((int)(textColor.getBlue() * 0.8), 0)
+            );
+        } 
+        // Aplica cor de hover se o mouse estiver sobre o botão
+        else if (mouseOver && isEnabled()) {
             textColor = getThemeColor("WButton.hoverColor", hoverColor);
         }
         
         // Aplica a cor ao texto
         g2.setColor(textColor);
 
-        // Calcula a escala do texto
-        float currentScale = 1.0f + ((MAX_TEXT_SCALE - 1.0f) * textScaleProgress);
+        // Calcula a escala do texto baseada no estado do mouse
+        float currentScale = 1.0f;
+        if (mouseOver || pressed) {
+            currentScale = 1.0f + ((MAX_TEXT_SCALE - 1.0f) * textScaleProgress);
+        }
 
         // Obtém as métricas da fonte com a escala aplicada
         g2.setFont(getFont().deriveFont(getFont().getSize() * currentScale));
@@ -352,13 +376,31 @@ public class WButton extends JButton {
         Rectangle2D textBounds = fm.getStringBounds(text, g2);
 
         // Calcula a posição centralizada do texto
-        int textX = (int) ((getWidth() - textBounds.getWidth()) / 2);
-        int textY = (int) ((getHeight() - textBounds.getHeight()) / 2 + fm.getAscent());
+        int textX = (int) ((getWidth() / currentScale - textBounds.getWidth() / currentScale) / 2);
+        int textY = (int) ((getHeight() / currentScale - fm.getHeight() / currentScale) / 2 + fm.getAscent() / currentScale);
 
-        // Desenha o texto com anti-aliasing
+        // Aplica transformação para o efeito de zoom suave
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
-                           RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                          RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                          RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        
+        // Aplica a transformação de escala a partir do centro
+        double centerX = getWidth() / 2.0;
+        double centerY = getHeight() / 2.0;
+        
+        // Move para o centro, aplica o zoom e depois move de volta
+        g2.translate(centerX, centerY);
+        g2.scale(currentScale, currentScale);
+        g2.translate(-centerX, -centerY);
+        
+        // Desenha o texto
         g2.drawString(text, textX, textY);
+        
+        // Restaura a transformação
+        g2.translate(centerX, centerY);
+        g2.scale(1/currentScale, 1/currentScale);
+        g2.translate(-centerX, -centerY);
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

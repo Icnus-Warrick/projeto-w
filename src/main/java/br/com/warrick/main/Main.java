@@ -3,7 +3,6 @@ package br.com.warrick.main;
 import br.com.warrick.view.*;
 import com.formdev.flatlaf.*;
 import com.formdev.flatlaf.themes.*;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,12 +16,6 @@ public class Main {
             System.setProperty("awt.useSystemAAFontSettings", "on");
             System.setProperty("swing.aatext", "true");
 
-            // Configura a fonte Roboto
-            FlatRobotoFont.install();
-
-            // Define a fonte Roboto como padrão
-            UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-
             // Registra o tema personalizado do diretório resources
             FlatLaf.registerCustomDefaultsSource("br.com.warrick.themes");
 
@@ -33,7 +26,7 @@ public class Main {
             FlatLaf.updateUI();
             // Executa a aplicação na EDT (Event Dispatch Thread)
             SwingUtilities.invokeLater(() -> {
-                new New().setVisible(true);
+                new Teste_WComponentes().setVisible(true);
             });
             
         } catch (Exception e) {

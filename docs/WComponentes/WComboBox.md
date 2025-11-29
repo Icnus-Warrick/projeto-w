@@ -328,6 +328,11 @@ worker.execute();
 - **Repositório**: [DJ-Raven/raven-project](https://github.com/DJ-Raven/raven-project)
 - **Licença**: [MIT License](LICENSE)
 
+### Atualizado por
+- **Autor**: Warrick
+- **Repositório**: [Icnus-Warrick/projeto-w](https://github.com/Icnus-Warrick/projeto-w)
+- **Licença**: [MIT License](LICENSE)
+
 ### Melhorias e Manutenção
 - **Animações**: Implementação de transições suaves
 - **Temas**: Suporte a temas claros e escuros
@@ -335,6 +340,13 @@ worker.execute();
 - **Sistema de Mensagens**: Feedback visual para validações
 - **Validação Integrada**: Suporte a campos obrigatórios e validações personalizadas
 - **Documentação**: Criação e manutenção da documentação
+
+## Links Úteis
+
+- [Documentação Java Swing - JComboBox](https://docs.oracle.com/javase/8/docs/api/javax/swing/JComboBox.html)
+- [FlatLaf - ComboBox Styling](https://www.formdev.com/flatlaf/components/#combobox)
+- [Java Tutorial - How to Use Combo Boxes](https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html)
+- [Material Design - Selection Controls](https://material.io/components/selection-controls)
 
 ### Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

@@ -311,12 +311,21 @@ if (!algumaSelecionada) {
 
 ### Desenvolvimento Original
 - **Autor**: Warrick
+- **Repositório**: [Icnus-Warrick/projeto-w](https://github.com/Icnus-Warrick/projeto-w)
 - **Licença**: [MIT License](LICENSE)
 
 ### Melhorias e Manutenção
 - **Animações**: Implementação de transições suaves
 - **Temas**: Suporte a temas claros e escuros
 - **Documentação**: Criação e manutenção da documentação
+
+## Links Úteis
+
+- [Documentação Java Swing - JCheckBox](https://docs.oracle.com/javase/8/docs/api/javax/swing/JCheckBox.html)
+- [FlatLaf - CheckBox Styling](https://www.formdev.com/flatlaf/components/#checkbox)
+- [Java Tutorial - How to Use Check Boxes](https://docs.oracle.com/javase/tutorial/uiswing/components/button.html#checkbox)
+- [Material Design - Checkbox](https://material.io/components/checkboxes)
+- [Java Look and Feel Guidelines - Check Boxes](https://www.oracle.com/java/technologies/jlfed/button.html#checkbox)
 
 ### Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

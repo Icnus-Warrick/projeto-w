@@ -340,12 +340,20 @@ botao.setMnemonic(KeyEvent.VK_E); // Atalho Alt+E
 
 ### Desenvolvimento Original
 - **Autor**: Warrick
+- **Repositório**: [Icnus-Warrick/projeto-w](https://github.com/Icnus-Warrick/projeto-w)
 - **Licença**: [MIT License](LICENSE)
 
 ### Melhorias e Manutenção
 - **Animações**: Implementação de transições suaves
 - **Temas**: Suporte a temas claros e escuros
 - **Documentação**: Criação e manutenção da documentação
+
+## Links Úteis
+
+- [Documentação Java Swing - JButton](https://docs.oracle.com/javase/8/docs/api/javax/swing/JButton.html)
+- [FlatLaf - Customizing Buttons](https://www.formdev.com/flatlaf/components/#button)
+- [Java Look and Feel Guidelines - Buttons](https://www.oracle.com/java/technologies/jlfed/button.html)
+- [Material Design - Buttons](https://material.io/components/buttons)
 
 ### Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
