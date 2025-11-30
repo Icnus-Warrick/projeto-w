@@ -41,6 +41,15 @@
     <p><em>WLabel com linha de destaque interativa</em></p>
 </div>
 
+### WTextArea - Área de Texto Avançada
+<div align="center">
+    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; display: inline-block;">
+        <p>WTextArea em ação (imagem será adicionada em breve)</p>
+        <p><small>Execute a classe Teste_WComponentes para ver a demonstração</small></p>
+    </div>
+    <p><em>WTextArea com rótulo flutuante e validação integrada</em></p>
+</div>
+
 ## 🚀 Recursos Principais
 
 - **Design Moderno**: Componentes com aparência profissional e animações suaves
@@ -55,7 +64,7 @@
 - **WTextField**: Campo de texto com rótulo flutuante e validação integrada
 - **WPasswordField**: Campo de senha seguro com opção de visualização
 - **WComboBox**: Menu suspenso com suporte a busca e validação
-- **WTextArea**: Área de texto expansível com formatação avançada
+- **WTextArea**: Área de texto com rótulo flutuante, validação e suporte a rolagem
 
 ### 🎛️ Controles de Interface
 - **WButton**: Botão com efeitos visuais e suporte a ícones
@@ -111,11 +120,12 @@ label.setLineColor(new Color(0, 120, 215));
 Cada componente possui sua própria documentação detalhada na pasta `docs/WComponentes/`:
 
 - [WButton](docs/WComponentes/WButton.md) - Botão personalizável
-- [WTextField](docs/WComponentes/WTextField.md) - Campo de texto avançado
-- [WPasswordField](docs/WComponentes/WPasswordField.md) - Campo de senha seguro
-- [WComboBox](docs/WComponentes/WComboBox.md) - Menu suspenso com busca
 - [WCheckBox](docs/WComponentes/WCheckBox.md) - Caixa de seleção
+- [WComboBox](docs/WComponentes/WComboBox.md) - Menu suspenso com busca
 - [WLabel](docs/WComponentes/WLabel.md) - Rótulo interativo
+- [WPasswordField](docs/WComponentes/WPasswordField.md) - Campo de senha seguro
+- [WTextArea](docs/WComponentes/WTextArea.md) - Área de texto com rótulo flutuante
+- [WTextField](docs/WComponentes/WTextField.md) - Campo de texto avançado
 
 ## 🤝 Contribuindo
 
@@ -178,6 +188,7 @@ implementation 'br.com.warrick:swing-components:1.0.0'
 - [WComboBox](docs/WComponentes/WComboBox.md) - Menu suspenso
 - [WLabel](docs/WComponentes/WLabel.md) - Rótulo interativo com linha de destaque
 - [WPasswordField](docs/WComponentes/WPasswordField.md) - Campo de senha
+- [WTextArea](docs/WComponentes/WTextArea.md) - Área de texto com rolagem e rótulo flutuante
 - [WTextField](docs/WComponentes/WTextField.md) - Campo de texto
 
 ## 🚀 Começando
