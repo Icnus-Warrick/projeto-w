@@ -135,6 +135,7 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 
 - [FlatLaf](https://www.formdev.com/flatlaf/) - Por fornecer um Look and Feel moderno para Java Swing
 - [Trident](https://github.com/kirill-grouchnikov/radiance) - Biblioteca de animações para Java
+- [Ra Ven](https://github.com/DJ-Raven/raven-project) - Projeto original na qual me inspirou 
 - A todos os contribuidores que ajudaram a melhorar este projeto!
 
 ## 📦 Requisitos
