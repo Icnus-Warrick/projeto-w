@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.warrick</groupId>
-    <artifactId>projeto_W</artifactId>
+    <artifactId>projeto-W</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     
-    <name>WSwing Components</name>
+    <name>Projeto W</name>
     <description>Biblioteca de componentes Swing personalizados com design moderno e recursos avançados</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
