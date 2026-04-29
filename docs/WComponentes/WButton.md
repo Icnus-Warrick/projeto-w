@@ -249,6 +249,52 @@ WButton.minimumWidth=75
 WButton.minimumHeight=30
 ```
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha inferior | `Color` | `botao.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `botao.setHoverColor(new Color(92, 172, 238))` |
+| `setPressedTextColor(Color)` | Cor do texto ao pressionar | `Color` | `botao.setPressedTextColor(new Color(0, 85, 204))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `botao.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto | `Color` | `botao.setForeground(Color.DARK_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `botao.setFont(new Font("Arial", Font.BOLD, 14))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WButton botao = new WButton("Salvar");
+
+// Cores personalizadas
+botao.setLineColor(new Color(0, 123, 255)); // Azul Bootstrap
+botao.setHoverColor(new Color(92, 172, 238));
+botao.setPressedTextColor(new Color(0, 85, 204));
+botao.setBackground(new Color(250, 250, 250));
+botao.setForeground(new Color(33, 37, 41));
+
+// Fonte personalizada
+botao.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+// Aplicar após configurar
+botao.revalidate();
+botao.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+- O efeito de zoom do texto foi otimizado na versão 3.4.0
+
 ## Recomendações de Uso
 
 ### Validação de Formulários
@@ -330,8 +376,10 @@ botao.setMnemonic(KeyEvent.VK_E); // Atalho Alt+E
 
 ## Notas de Versão
 
-### v3.4.0 (26/11/2025)
-- Versão inicial do componente
+### v3.4.0 (28/04/2026)
+- **Melhoria**: Efeito de zoom do texto totalmente reformulado e otimizado
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Suporte a temas FlatLaf
 - Animações de hover e clique
 - Personalização de cores e estilos

@@ -206,6 +206,51 @@ WCheckBox.showMnemonics=true
 WCheckBox.textShiftOffset=0
 ```
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha inferior | `Color` | `check.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `check.setHoverColor(new Color(92, 172, 238))` |
+| `setCheckBgColor(Color)` | Cor de fundo do checkbox | `Color` | `check.setCheckBgColor(new Color(69, 144, 235))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `check.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto | `Color` | `check.setForeground(Color.DARK_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `check.setFont(new Font("Arial", Font.PLAIN, 14))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WCheckBox check = new WCheckBox("Aceito os termos");
+
+// Cores personalizadas
+check.setLineColor(new Color(40, 167, 69)); // Verde
+check.setHoverColor(new Color(33, 136, 56));
+check.setCheckBgColor(new Color(40, 167, 69));
+check.setBackground(new Color(250, 250, 250));
+check.setForeground(new Color(33, 37, 41));
+
+// Fonte personalizada
+check.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+// Aplicar após configurar
+check.revalidate();
+check.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+
 ## Recomendações de Uso
 
 ### Validação de Seleção
@@ -295,9 +340,11 @@ if (!algumaSelecionada) {
 
 ## Notas de Versão
 
-### v3.4.0 (26/11/2025)
+### v3.4.0 (28/04/2026)
 
 #### Melhorias
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Implementação inicial do componente WCheckBox
 - Suporte a temas FlatLaf
 - Animações de hover e seleção

@@ -222,6 +222,51 @@ try {
 }
 ```
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da borda em foco | `Color` | `area.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `area.setHoverColor(new Color(100, 180, 220))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `area.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto | `Color` | `area.setForeground(Color.DARK_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `area.setFont(new Font("Arial", Font.PLAIN, 14))` |
+| `setLabelFont(Font)` | Fonte do rótulo flutuante | `Font` | `area.setLabelFont(new Font("Segoe UI", Font.BOLD, 12))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WTextArea area = new WTextArea("Descrição");
+
+// Cores personalizadas
+area.setLineColor(new Color(94, 53, 177)); // Roxo
+area.setHoverColor(new Color(69, 39, 160));
+area.setBackground(new Color(250, 250, 250));
+area.setForeground(new Color(33, 37, 41));
+
+// Fontes personalizadas
+area.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+area.setLabelFont(new Font("Segoe UI", Font.BOLD, 12));
+
+// Aplicar após configurar
+area.revalidate();
+area.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+
 ## Boas Práticas
 
 1. **Uso de JScrollPane**
@@ -282,9 +327,11 @@ try {
 
 ## Notas de Versão
 
-### v3.4.0 (27/11/2025)
+### v3.4.0 (28/04/2026)
 
 #### Novos Recursos
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Implementação inicial do componente WTextArea
 - Suporte a temas FlatLaf
 - Sistema de validação integrado
