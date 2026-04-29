@@ -1,12 +1,12 @@
 package br.com.warrick.swing;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -15,9 +15,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -147,11 +147,6 @@ public class WPasswordField extends JPasswordField {
     /** Controlador de animação para mensagens de erro */
     protected Timeline errorTimeline;
 
-    /** Ícone para mostrar a senha */
-    protected Image eyeIcon;
-
-    /** Ícone para esconder a senha */
-    protected Image eyeHideIcon;
 
     // ============================================ CONSTRUTORES ============================================
 
@@ -309,8 +304,6 @@ public class WPasswordField extends JPasswordField {
             }
         });
 
-        // Carrega os ícones
-        loadIcons();
     }
 
     /**
@@ -325,16 +318,7 @@ public class WPasswordField extends JPasswordField {
     /**
      * Carrega os ícones de mostrar/esconder senha.
      */
-    private void loadIcons() {
-        try {
-            eyeIcon = new ImageIcon(getClass().getResource("/br/com/warrick/icon/eye.png")).getImage();
-            eyeHideIcon = new ImageIcon(getClass().getResource("/br/com/warrick/icon/eye_hide.png")).getImage();
-        } catch (Exception e) {
-            System.err.println("Aviso: Não foi possível carregar os ícones do classpath: " + e.getMessage());
-            showAndHide = false;
-            System.err.println("O botão de mostrar/esconder senha foi desabilitado.");
-        }
-    }
+
 
     /**
      * Pinta o componente e seus elementos visuais.
@@ -421,6 +405,7 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE ANIMAÇÃO ============================================
+
     /**
      * Anima a transição do rótulo.
      */
@@ -464,6 +449,7 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE PINTURA ============================================
+
     /**
      * Desenha os componentes visuais do campo.
      */
@@ -550,16 +536,38 @@ public class WPasswordField extends JPasswordField {
      * Desenha o botão de mostrar/esconder senha.
      */
     protected void paintToggleButton(Graphics2D g2) {
-        int buttonX = getWidth() - EYE_RIGHT_PADDING + EYE_ICON_MARGIN;
-        int buttonY = (getHeight() - EYE_ICON_SIZE) / 2;
+        int cx = getWidth() - EYE_RIGHT_PADDING + EYE_ICON_MARGIN + EYE_ICON_SIZE / 2;
+        int cy = getHeight() / 2;
+        int w  = EYE_ICON_SIZE;      // largura do olho
+        int h  = EYE_ICON_SIZE / 2;  // altura do olho
 
-        Image icon = hidePassword ? eyeIcon : eyeHideIcon;
-        if (icon != null) {
-            g2.drawImage(icon, buttonX, buttonY, EYE_ICON_SIZE, EYE_ICON_SIZE, null);
-        } else {
-            // Fallback: desenha um retângulo simples se o ícone não estiver disponível
-            g2.setColor(Color.GRAY);
-            g2.fillRect(buttonX, buttonY, EYE_ICON_SIZE, EYE_ICON_SIZE);
+        Color eyeColor = hasError
+                ? (isSuccessMessage ? getThemeColor("WPasswordField.successColor", SUCCESS_COLOR)
+                                    : getThemeColor("WPasswordField.errorColor",   ERROR_COLOR))
+                : (isFocusOwner() ? lineColor
+                                  : getThemeColor("WPasswordField.hintColor", DEFAULT_HINT_COLOR));
+
+        g2.setColor(eyeColor);
+        g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+
+        // Contorno do olho (arco superior + arco inferior formando uma amêndoa)
+        Path2D eye = new Path2D.Float();
+        eye.moveTo(cx - w / 2.0, cy);
+        eye.curveTo(cx - w / 4.0, cy - h, cx + w / 4.0, cy - h, cx + w / 2.0, cy);
+        eye.curveTo(cx + w / 4.0, cy + h, cx - w / 4.0, cy + h, cx - w / 2.0, cy);
+        eye.closePath();
+        g2.draw(eye);
+
+        // Pupila
+        int pr = w / 6;
+        g2.fillOval(cx - pr, cy - pr, pr * 2, pr * 2);
+
+        // Linha diagonal quando senha está visível (olho "aberto" sem risco)
+        // Linha diagonal quando senha está oculta (olho "fechado" com risco)
+        if (hidePassword) {
+            int slashOff = (int)(w * 0.38);
+            g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2.drawLine(cx - slashOff, cy + slashOff, cx + slashOff, cy - slashOff);
         }
     }
 
@@ -739,25 +747,48 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE ACESSO ============================================
-    public String getLabelText() {return labelText;}
 
-    public boolean isShowAndHide() {return showAndHide;}
+    public String getLabelText() {
+        return labelText;
+    }
 
-    public Color getLineColor() {return lineColor;}
+    public boolean isShowAndHide() {
+        return showAndHide;
+    }
 
-    public Color getHoverColor() {return hoverColor;}
+    public Color getLineColor() {
+        return lineColor;
+    }
 
-    public float getAnimationLocation() {return animationLocation;}
+    public Color getHoverColor() {
+        return hoverColor;
+    }
 
-    public float getErrorAnimationLocation() {return errorAnimationLocation;}
+    public float getAnimationLocation() {
+        return animationLocation;
+    }
 
-    public float getLineAnimationProgress() {return lineAnimationProgress;}
+    public float getErrorAnimationLocation() {
+        return errorAnimationLocation;
+    }
 
-    public boolean isObrigatorio() {return obrigatorio;}
+    public float getLineAnimationProgress() {
+        return lineAnimationProgress;
+    }
 
-    public boolean hasError() {return hasError;}
+    public boolean isObrigatorio() {
+        return obrigatorio;
+    }
 
-    public String getErrorMessage() {return errorMessage;}
+    public boolean hasError() {
+        return hasError;
+    }
 
-    public boolean isPasswordVisible() {return !hidePassword;}
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public boolean isPasswordVisible() {
+        return !hidePassword;
+    }
 }

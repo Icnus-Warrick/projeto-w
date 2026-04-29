@@ -277,7 +277,7 @@ public class WComboBox<E> extends JComboBox<E> {
         addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 if (hasError) {
-                    limparErro();
+                    limparMensagem();
                 }
                 updateLabelState(isFocusOwner());
             }
@@ -702,7 +702,7 @@ public class WComboBox<E> extends JComboBox<E> {
         super.setSelectedIndex(index);
         updateLabelState(isFocusOwner());
         if (hasError && index != -1) {
-            limparErro();
+            limparMensagem();
         }
     }
 
@@ -711,7 +711,7 @@ public class WComboBox<E> extends JComboBox<E> {
         super.setSelectedItem(item);
         updateLabelState(isFocusOwner());
         if (hasError && item != null) {
-            limparErro();
+            limparMensagem();
         }
     }
 
@@ -805,8 +805,6 @@ public class WComboBox<E> extends JComboBox<E> {
         }
 
         private class WScrollBarUI extends javax.swing.plaf.basic.BasicScrollBarUI {
-
-            private final int THUMB_SIZE = 60;
 
             @Override
             protected void configureScrollBarColors() {

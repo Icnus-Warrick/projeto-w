@@ -1,8 +1,19 @@
 package br.com.warrick.swing;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.ease.Spline;
 
@@ -213,7 +224,7 @@ public class WLabel extends JLabel {
         Insets insets = getInsets();
 
         // Calcula a posição X baseada no alinhamento horizontal
-        int x = 0;
+        int x;
         int horizontalAlignment = getHorizontalAlignment();
 
         if (horizontalAlignment == SwingConstants.CENTER) {
@@ -317,5 +328,5 @@ public class WLabel extends JLabel {
 
     public float getLineAnimationProgress() {return lineAnimationProgress;}
 
-    public boolean isMouseOver() {return mouseOver;
+    public boolean isMouseOver() {return mouseOver;}
 }

@@ -103,14 +103,7 @@ public class WTextField extends JTextField {
  
     private boolean hoverColorSet = false;
   
-    private boolean usarCoresTema = false;
 
-    // ============================================ CONSTRUTORES ============================================
-
-    public WTextField() {
-        this("");
-    }   
-    
     public WTextField(String labelText) {
         super();
         this.labelText = labelText;
@@ -214,14 +207,6 @@ public class WTextField extends JTextField {
             @Override
             public void mouseExited(MouseEvent me) {
                 mouseOver = false;
-                repaint();
-            }
-            
-            public void focusLost(FocusEvent fe) {
-                if (getText().isEmpty()) {
-                    animateLabel(false);
-                }
-                animateLine(false);
                 repaint();
             }
         });
