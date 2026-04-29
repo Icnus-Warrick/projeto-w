@@ -295,7 +295,7 @@ if (!algumaSelecionada) {
 
 ## Notas de Versão
 
-### v1.0.0 (26/11/2025)
+### v3.4.0 (26/11/2025)
 
 #### Melhorias
 - Implementação inicial do componente WCheckBox

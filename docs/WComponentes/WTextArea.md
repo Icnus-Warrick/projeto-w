@@ -282,7 +282,7 @@ try {
 
 ## Notas de Versão
 
-### v1.0.0 (27/11/2025)
+### v3.4.0 (27/11/2025)
 
 #### Novos Recursos
 - Implementação inicial do componente WTextArea

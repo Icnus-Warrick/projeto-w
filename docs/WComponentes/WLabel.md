@@ -134,7 +134,7 @@ rotulo.setVerticalAlignment(SwingConstants.CENTER);
 - Melhorias na animação da linha
 - Suporte a temas personalizados
 
-### v1.0.0 (2025-11-27)
+### v3.4.0 (2025-11-27)
 - Versão inicial
 - Linha inferior animada
 - Suporte a alinhamento horizontal

@@ -2,7 +2,7 @@
  * NomeDaClasse.java
  * 
  * @author Seu Nome
- * @version 1.0.0
+ * @version 3.4.0
  * @since 23/11/2025
  * 
  * Descrição breve do componente.
@@ -38,7 +38,7 @@ br.com.warrick.swing
  * <a href="docs/NomeDaClasse.md">Documentação Detalhada</a></p>
  *
  * @author Nome do Desenvolvedor
- * @version 1.0.0
+ * @version 3.4.0
  * @since 23/11/2025
  * @see JComponent
  * @see OutraClasseRelacionada
@@ -70,7 +70,7 @@ br.com.warrick.swing
  * 
  * @param obrigatorio true para marcar o campo como obrigatório,
  *                   false caso contrário
- * @since 1.0.0
+ * @since 3.4.0
  */
 public void setObrigatorio(boolean obrigatorio) {
     this.obrigatorio = obrigatorio;
@@ -96,7 +96,7 @@ public void setObrigatorio(boolean obrigatorio) {
  * @param valor Valor a ser validado
  * @return true se o valor for válido, false caso contrário
  * @throws IllegalArgumentException Se o valor for inválido
- * @since 1.0.0
+ * @since 3.4.0
  */
 public boolean validar(String valor) {
     // Implementação

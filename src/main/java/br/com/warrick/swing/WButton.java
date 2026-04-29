@@ -23,7 +23,7 @@ import org.pushingpixels.trident.ease.Spline;
  * O WButton é uma extensão do JButton que adiciona uma linha inferior animada e um efeito de zoom no texto ao passar o mouse.
  *
  * @author Warrick
- * @version 1.0.0
+ * @version 3.4.0
  * @since 25/11/2025
  */
 public class WButton extends JButton {

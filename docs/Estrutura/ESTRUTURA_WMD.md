@@ -306,7 +306,7 @@ WComponent.successColor=#28a745    # Sucesso
 
 ## Histórico de Versões
 
-### Versão 1.0.0 (23/11/2025) Versão inicial e Data de Criação
+### Versão 3.4.0 (23/11/2025) Versão inicial e Data de Criação
 - Lançamento inicial
 - Suporte a temas claro/escuro
 - Validações básicas

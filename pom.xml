@@ -6,7 +6,7 @@
 
     <groupId>br.com.warrick</groupId>
     <artifactId>projeto-W</artifactId>
-    <version>1.0.0</version>
+    <version>3.4.0</version>
     <packaging>jar</packaging>
     
     <name>Projeto W</name>

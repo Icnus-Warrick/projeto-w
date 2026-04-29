@@ -95,7 +95,7 @@ Esta biblioteca foi desenvolvida com foco na **compatibilidade retroativa**, gar
 <dependency>
     <groupId>br.com.warrick</groupId>
     <artifactId>projeto-W</artifactId>
-    <version>1.0.0</version>
+    <version>3.4.0</version>
 </dependency>
 ```
 
@@ -186,14 +186,14 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
     <dependency>
         <groupId>br.com.warrick</groupId>
         <artifactId>projeto-W</artifactId>
-        <version>1.0.0</version>
+        <version>3.4.0</version>
     </dependency>
 </dependencies>
 ```
 
 ### Gradle
 ```gradle
-implementation 'br.com.warrick:projeto-W:1.0.0'
+implementation 'br.com.warrick:projeto-W:3.4.0'
 ```
 
 ## 📖 Documentação

@@ -23,7 +23,7 @@ import org.pushingpixels.trident.Timeline;
  * O WCheckBox é projetado para ser facilmente integrado em interfaces gráficas usando o tema FlatLaf, mas também pode ser usado com outros temas.
  *
  * @author Warrick
- * @version 1.0.0
+ * @version 3.4.0
  * @since 26/11/2025
  */
 public class WCheckBox extends JCheckBox {

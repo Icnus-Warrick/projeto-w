@@ -330,7 +330,7 @@ botao.setMnemonic(KeyEvent.VK_E); // Atalho Alt+E
 
 ## Notas de Versão
 
-### v1.0.0 (26/11/2025)
+### v3.4.0 (26/11/2025)
 - Versão inicial do componente
 - Suporte a temas FlatLaf
 - Animações de hover e clique
