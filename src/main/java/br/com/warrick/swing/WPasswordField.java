@@ -153,6 +153,10 @@ public class WPasswordField extends JPasswordField {
     /**
      * Cria um novo campo de senha com rótulo vazio.
      */
+    private boolean fontSet = false;
+
+    protected Font labelFont = null;
+
     public WPasswordField() {
         this("");
     }
@@ -162,6 +166,8 @@ public class WPasswordField extends JPasswordField {
      *
      * @param labelText Texto do rótulo que será exibido como dica flutuante
      */
+
+
     public WPasswordField(String labelText) {
         super();
         this.labelText = labelText;
@@ -209,6 +215,16 @@ public class WPasswordField extends JPasswordField {
         setCaretColor(getThemeColor("WPasswordField.textColor", DEFAULT_TEXT_COLOR));
         lineColor = getThemeColor("WPasswordField.lineColor", DEFAULT_LINE_COLOR);
         hoverColor = getThemeColor("WPasswordField.hoverColor", DEFAULT_HOVER_COLOR);
+        // Fonte do texto
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WPasswordField.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
+        // Fonte do rótulo flutuante
+        Font themeLabelFont = UIManager.getFont("WPasswordField.labelFont");
+        labelFont = (themeLabelFont != null) ? themeLabelFont : null;
     }
 
     private void setupField() {
@@ -508,6 +524,9 @@ public class WPasswordField extends JPasswordField {
         }
         g2.setColor(labelColor);
 
+        // Usa fonte do rótulo se definida, senão usa a fonte do componente
+        Font currentLabelFont = (labelFont != null) ? labelFont : getFont();
+        g2.setFont(currentLabelFont);
         FontMetrics fm = g2.getFontMetrics();
         Rectangle2D textBounds = fm.getStringBounds(labelText, g2);
 
@@ -692,6 +711,23 @@ public class WPasswordField extends JPasswordField {
     @Deprecated
     public void limparErro() {
         limparMensagem();
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
+    }
+
+    public void setLabelFont(Font font) {
+        this.labelFont = font;
+        repaint();
+    }
+
+    public Font getLabelFont() {
+        return labelFont != null ? labelFont : getFont();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

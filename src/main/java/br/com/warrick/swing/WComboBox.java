@@ -153,6 +153,10 @@ public class WComboBox<E> extends JComboBox<E> {
     /**
      * Cria um novo combo box com rótulo vazio.
      */
+    private boolean fontSet = false;
+
+    protected Font labelFont = null;
+
     public WComboBox() {
         this("");
     }
@@ -162,6 +166,8 @@ public class WComboBox<E> extends JComboBox<E> {
      *
      * @param labelText Texto do rótulo que será exibido como dica flutuante
      */
+
+
     public WComboBox(String labelText) {
         super();
         this.labelText = labelText;
@@ -208,6 +214,16 @@ public class WComboBox<E> extends JComboBox<E> {
         setForeground(getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR));
         lineColor = getThemeColor("WComboBox.lineColor", DEFAULT_LINE_COLOR);
         hoverColor = getThemeColor("WComboBox.hoverColor", DEFAULT_HOVER_COLOR);
+        // Fonte do texto
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WComboBox.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
+        // Fonte do rótulo flutuante
+        Font themeLabelFont = UIManager.getFont("WComboBox.labelFont");
+        labelFont = (themeLabelFont != null) ? themeLabelFont : null;
     }
 
     private void setupComboBox() {
@@ -532,7 +548,10 @@ public class WComboBox<E> extends JComboBox<E> {
             }
             g2.setColor(labelColor);
 
-            FontMetrics fm = g2.getFontMetrics();
+            // Usa fonte do rótulo se definida, senão usa a fonte do componente
+        Font currentLabelFont = (labelFont != null) ? labelFont : getFont();
+        g2.setFont(currentLabelFont);
+        FontMetrics fm = g2.getFontMetrics();
             Rectangle2D textBounds = fm.getStringBounds(labelText, g2);
 
             // Calcula posições com animação
@@ -693,6 +712,23 @@ public class WComboBox<E> extends JComboBox<E> {
     @Deprecated
     public void limparErro() {
         limparMensagem();
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
+    }
+
+    public void setLabelFont(Font font) {
+        this.labelFont = font;
+        repaint();
+    }
+
+    public Font getLabelFont() {
+        return labelFont != null ? labelFont : getFont();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

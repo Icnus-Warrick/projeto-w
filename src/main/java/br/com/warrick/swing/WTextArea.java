@@ -205,6 +205,10 @@ public class WTextArea extends JTextArea {
     /**
      * Cria uma nova área de texto com rótulo vazio.
      */
+    private boolean fontSet = false;
+
+    protected Font labelFont = null;
+
     public WTextArea() {
         this("");
     }
@@ -214,6 +218,8 @@ public class WTextArea extends JTextArea {
      *
      * @param labelText Texto do rótulo que será exibido como dica flutuante.
      */
+
+
     public WTextArea(String labelText) {
         super();
         this.labelText = labelText;
@@ -227,6 +233,8 @@ public class WTextArea extends JTextArea {
      * @param rows Número de linhas visíveis
      * @param columns Número de colunas visíveis
      */
+
+
     public WTextArea(String labelText, int rows, int columns) {
         super(rows, columns);
         this.labelText = labelText;
@@ -270,6 +278,16 @@ public class WTextArea extends JTextArea {
         setCaretColor(getThemeColor("WTextArea.textColor", DEFAULT_TEXT_COLOR));
         lineColor = getThemeColor("WTextArea.lineColor", DEFAULT_LINE_COLOR);
         hoverColor = getThemeColor("WTextArea.hoverColor", DEFAULT_HOVER_COLOR);
+        // Fonte do texto
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WTextArea.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
+        // Fonte do rótulo flutuante
+        Font themeLabelFont = UIManager.getFont("WTextArea.labelFont");
+        labelFont = (themeLabelFont != null) ? themeLabelFont : null;
     }
 
     private void setupField() {
@@ -527,6 +545,9 @@ public class WTextArea extends JTextArea {
         }
         g2.setColor(labelColor);
 
+        // Usa fonte do rótulo se definida, senão usa a fonte do componente
+        Font currentLabelFont = (labelFont != null) ? labelFont : getFont();
+        g2.setFont(currentLabelFont);
         FontMetrics fm = g2.getFontMetrics();
         Rectangle2D textBounds = fm.getStringBounds(labelText, g2);
 
@@ -655,6 +676,23 @@ public class WTextArea extends JTextArea {
     @Deprecated
     public void limparErro() {
         limparMensagem();
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
+    }
+
+    public void setLabelFont(Font font) {
+        this.labelFont = font;
+        repaint();
+    }
+
+    public Font getLabelFont() {
+        return labelFont != null ? labelFont : getFont();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

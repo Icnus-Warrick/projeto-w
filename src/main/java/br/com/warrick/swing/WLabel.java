@@ -2,6 +2,7 @@ package br.com.warrick.swing;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -90,6 +91,8 @@ public class WLabel extends JLabel {
     /**
      * Cria um novo label vazio.
      */
+    private boolean fontSet = false;
+
     public WLabel() {
         this("");
     }
@@ -99,6 +102,7 @@ public class WLabel extends JLabel {
      *
      * @param text Texto a ser exibido no label
      */
+
     public WLabel(String text) {
         super(text);
         setupLabel();
@@ -110,6 +114,7 @@ public class WLabel extends JLabel {
      * @param text Texto a ser exibido no label
      * @param horizontalAlignment Alinhamento horizontal (SwingConstants.LEFT, CENTER, RIGHT, LEADING, TRAILING)
      */
+
     public WLabel(String text, int horizontalAlignment) {
         super(text, horizontalAlignment);
         setupLabel();
@@ -140,6 +145,13 @@ public class WLabel extends JLabel {
     private void applyThemeColors() {
         setForeground(getThemeColor("WLabel.textColor", DEFAULT_TEXT_COLOR));
         lineColor = getThemeColor("WLabel.lineColor", DEFAULT_LINE_COLOR);
+        // Fonte do componente
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WLabel.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
     }
 
     private void setupLabel() {
@@ -271,6 +283,14 @@ public class WLabel extends JLabel {
         lineTimeline.setEase(new Spline(0.5f));
         lineTimeline.setDuration(ANIMATION_DURATION);
         lineTimeline.play();
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

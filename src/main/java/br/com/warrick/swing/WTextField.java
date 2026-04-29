@@ -102,6 +102,10 @@ public class WTextField extends JTextField {
     private boolean lineColorSet = false;
  
     private boolean hoverColorSet = false;
+
+    private boolean fontSet = false;
+
+    protected Font labelFont = null;
   
 
     public WTextField(String labelText) {
@@ -140,7 +144,17 @@ public class WTextField extends JTextField {
         // Só sobrescreve lineColor/hoverColor se não foram definidos manualmente
         if (!lineColorSet) {
             lineColor = getThemeColor("WTextField.lineColor", DEFAULT_LINE_COLOR);
+        // Fonte do texto
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WTextField.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
         }
+        // Fonte do rótulo flutuante
+        Font themeLabelFont = UIManager.getFont("WTextField.labelFont");
+        labelFont = (themeLabelFont != null) ? themeLabelFont : null;
+    }
         if (!hoverColorSet) {
             hoverColor = getThemeColor("WTextField.hoverColor", DEFAULT_HOVER_COLOR);
         }
@@ -397,6 +411,9 @@ public class WTextField extends JTextField {
         }
         g2.setColor(labelColor);
 
+        // Usa fonte do rótulo se definida, senão usa a fonte do componente
+        Font currentLabelFont = (labelFont != null) ? labelFont : getFont();
+        g2.setFont(currentLabelFont);
         FontMetrics fm = g2.getFontMetrics();
         Rectangle2D textBounds = fm.getStringBounds(labelText, g2);
 
@@ -497,6 +514,23 @@ public class WTextField extends JTextField {
    
     @Deprecated
     public void limparErro() { limparMensagem();}
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
+    }
+
+    public void setLabelFont(Font font) {
+        this.labelFont = font;
+        repaint();
+    }
+
+    public Font getLabelFont() {
+        return labelFont != null ? labelFont : getFont();
+    }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================
     @Override

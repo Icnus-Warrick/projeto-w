@@ -2,6 +2,7 @@ package br.com.warrick.swing;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -107,6 +108,8 @@ public class WButton extends JButton {
     /**
      * Cria um novo botão com texto vazio.
      */
+    private boolean fontSet = false;
+
     public WButton() {
         this("");
     }
@@ -116,6 +119,7 @@ public class WButton extends JButton {
      *
      * @param text Texto do botão
      */
+
     public WButton(String text) {
         super(text);
         setupButton();
@@ -156,6 +160,13 @@ public class WButton extends JButton {
         setForeground(getThemeColor("WButton.textColor", DEFAULT_TEXT_COLOR));
         lineColor = getThemeColor("WButton.lineColor", DEFAULT_LINE_COLOR);
         hoverColor = getThemeColor("WButton.hoverColor", DEFAULT_HOVER_COLOR);
+        // Fonte do componente
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WButton.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
     }
 
     private void setupButton() {
@@ -397,6 +408,14 @@ public class WButton extends JButton {
         g2.translate(-centerX, -centerY);
 
         g2.drawString(text, textX, textY);
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================

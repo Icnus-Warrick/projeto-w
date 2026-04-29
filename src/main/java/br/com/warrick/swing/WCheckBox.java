@@ -2,6 +2,7 @@ package br.com.warrick.swing;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -101,6 +102,8 @@ public class WCheckBox extends JCheckBox {
     /**
      * Cria um novo checkbox sem texto.
      */
+    private boolean fontSet = false;
+
     public WCheckBox() {
         this("");
     }
@@ -110,6 +113,7 @@ public class WCheckBox extends JCheckBox {
      *
      * @param text Texto do checkbox
      */
+
     public WCheckBox(String text) {
         super(text);
         setupCheckBox();
@@ -149,6 +153,13 @@ public class WCheckBox extends JCheckBox {
         checkBgColor = getThemeColor("WCheckBox.checkBgColor", DEFAULT_CHECK_BG_COLOR);
         selectedTextColor = getThemeColor("WCheckBox.selectedTextColor", DEFAULT_SELECTED_TEXT_COLOR);
         unselectedTextColor = getThemeColor("WCheckBox.unselectedTextColor", DEFAULT_UNSELECTED_TEXT_COLOR);
+        // Fonte do componente
+        if (!fontSet) {
+            Font themeFont = UIManager.getFont("WCheckBox.font");
+            if (themeFont != null) {
+                super.setFont(themeFont);
+            }
+        }
     }
 
     private void setupCheckBox() {
@@ -346,6 +357,14 @@ public class WCheckBox extends JCheckBox {
         
         // Desenha o texto
         g2.drawString(text, textX, textY);
+    }
+
+    
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontSet = true;
+        repaint();
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================
