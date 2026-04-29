@@ -26,8 +26,8 @@ import org.pushingpixels.trident.ease.Spline;
  * Componente de campo de texto personalizado com suporte a animações, rótulo flutuante e validação.
  *
  * @author Warrick
- * @version 3.2.2
- * @since 25/11/2025
+ * @version 3.4.0
+ * @since 28/04/2026
  * @see JTextField
  */
 public class WTextField extends JTextField {

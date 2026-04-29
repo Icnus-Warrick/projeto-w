@@ -25,8 +25,8 @@ import org.pushingpixels.trident.ease.Spline;
  * O WLabel suporta alinhamento horizontal e vertical do texto, e a linha inferior se ajusta dinamicamente com base no tamanho do texto e nas margens do componente.
  *
  * @author Warrick
- * @version 2.0.0
- * @since 27/11/2025
+ * @version 3.4.0
+ * @since 28/04/2026
  * @see JLabel
  */
 public class WLabel extends JLabel {

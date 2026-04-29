@@ -39,8 +39,8 @@ import org.pushingpixels.trident.ease.Spline;
  * Componente de combo box personalizado com suporte a animações, rótulo flutuante e validação.
  *
  * @author Warrick
- * @version 3.2.2
- * @since 26/11/2025
+ * @version 3.4.0
+ * @since 28/04/2026
  */
 public class WComboBox<E> extends JComboBox<E> {
     // ============================================ CONSTANTES DE CORES ============================================
