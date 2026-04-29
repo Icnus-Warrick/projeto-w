@@ -1,7 +1,5 @@
 package br.com.warrick.view;
 
-import br.com.warrick.swing.*;
-
 public class Teste_WComponentes extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Teste_WComponentes.class.getName());
