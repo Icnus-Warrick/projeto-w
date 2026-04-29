@@ -1,21 +1,33 @@
 package br.com.warrick.swing;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.ease.Spline;
 
 /**
  * Componente de área de texto personalizado com suporte a animações, rótulo flutuante e validação.
- *
- * <p>
- * Esta classe estende JTextArea para fornecer uma área de texto com rótulo flutuante, feedback visual consistente e
- * sistema de validação integrado.</p>
- *
+ * O WTextArea é uma extensão do JTextArea que adiciona funcionalidades avançadas de interface, como animações suaves para o rótulo flutuante, linha inferior interativa e mensagens de erro/sucesso estilizadas.
+ * Este componente é projetado para ser facilmente integrado em interfaces gráficas usando o tema FlatLaf.
+ * 
  * @author Warrick
  * @version 1.0.0
  * @since 27/11/2025
@@ -243,19 +255,32 @@ public class WTextArea extends JTextArea {
     /**
      * Configura as propriedades iniciais da área de texto.
      */
-    private void setupField() {
-        // Configuração de borda e cores
-        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            repaint();
+        }
+    }
+
+    private void applyThemeColors() {
         setBackground(getThemeColor("WTextArea.bgColor", DEFAULT_BG_COLOR));
         setForeground(getThemeColor("WTextArea.textColor", DEFAULT_TEXT_COLOR));
         setCaretColor(getThemeColor("WTextArea.textColor", DEFAULT_TEXT_COLOR));
+        lineColor = getThemeColor("WTextArea.lineColor", DEFAULT_LINE_COLOR);
+        hoverColor = getThemeColor("WTextArea.hoverColor", DEFAULT_HOVER_COLOR);
+    }
+
+    private void setupField() {
+        // Configuração de borda e cores
+        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
         setOpaque(false);
         setLineWrap(true);
         setWrapStyleWord(true);
 
         // Inicializa as cores customizáveis do tema
-        lineColor = getThemeColor("WTextArea.lineColor", DEFAULT_LINE_COLOR);
-        hoverColor = getThemeColor("WTextArea.hoverColor", DEFAULT_HOVER_COLOR);
+        applyThemeColors();
 
         // Inicializa a animação
         initAnimation();

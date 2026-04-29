@@ -1,26 +1,25 @@
 package br.com.warrick.swing;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JCheckBox;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
 import org.pushingpixels.trident.Timeline;
 
 /**
  * Componente de checkbox personalizado com aparência similar ao WTextField.
- *
- * <p>Esta classe estende JCheckBox para fornecer um checkbox com
- * linha inferior animada e feedback visual consistente.</p>
- *
- * <p><b>Recursos:</b></p>
- * <ul>
- *   <li>Linha inferior animada ao receber/perder foco</li>
- *   <li>Feedback visual ao passar o mouse</li>
- *   <li>Personalização de cores</li>
- *   <li>Suporte a temas FlatLaf</li>
- *   <li>Animações suaves de transição</li>
- * </ul>
+ * O WCheckBox é projetado para ser facilmente integrado em interfaces gráficas usando o tema FlatLaf, mas também pode ser usado com outros temas.
  *
  * @author Warrick
  * @version 1.0.0
@@ -133,19 +132,33 @@ public class WCheckBox extends JCheckBox {
     /**
      * Configura as propriedades iniciais do checkbox.
      */
-    private void setupCheckBox() {
-        // Configuração de borda e cores
-        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
-        setBackground(getThemeColor("WCheckBox.bgColor", DEFAULT_BG_COLOR));
-        setOpaque(false);
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            updateTextColor();
+            repaint();
+        }
+    }
 
-        // Inicializa as cores customizáveis do tema
+    private void applyThemeColors() {
+        setBackground(getThemeColor("WCheckBox.bgColor", DEFAULT_BG_COLOR));
         lineColor = getThemeColor("WCheckBox.lineColor", DEFAULT_LINE_COLOR);
         hoverColor = getThemeColor("WCheckBox.hoverColor", DEFAULT_HOVER_COLOR);
         checkBgColor = getThemeColor("WCheckBox.checkBgColor", DEFAULT_CHECK_BG_COLOR);
         selectedTextColor = getThemeColor("WCheckBox.selectedTextColor", DEFAULT_SELECTED_TEXT_COLOR);
         unselectedTextColor = getThemeColor("WCheckBox.unselectedTextColor", DEFAULT_UNSELECTED_TEXT_COLOR);
+    }
+
+    private void setupCheckBox() {
+        // Configuração de borda e cores
+        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
+        setOpaque(false);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Inicializa as cores customizáveis do tema
+        applyThemeColors();
 
         // Listener de mouse
         addMouseListener(new MouseAdapter() {
@@ -359,37 +372,15 @@ public class WCheckBox extends JCheckBox {
 
     // ============================================ MÉTODOS DE ACESSO ============================================
 
-    public Color getLineColor() {
-        return lineColor;
-    }
+    public Color getLineColor() {return lineColor;}
 
-    public Color getHoverColor() {
-        return hoverColor;
-    }
+    public Color getHoverColor() {return hoverColor;}
 
-    public Color getCheckBgColor() {
-        return checkBgColor;
-    }
-    
-    /**
-     * Retorna a cor do texto quando o checkbox está selecionado.
-     * 
-     * @return Cor do texto selecionado
-     */
-    public Color getSelectedTextColor() {
-        return selectedTextColor;
-    }
-    
-    /**
-     * Retorna a cor do texto quando o checkbox não está selecionado.
-     * 
-     * @return Cor do texto não selecionado
-     */
-    public Color getUnselectedTextColor() {
-        return unselectedTextColor;
-    }
+    public Color getCheckBgColor() {return checkBgColor;}
 
-    public float getLineAnimationProgress() {
-        return lineAnimationProgress;
-    }
+    public Color getSelectedTextColor() {return selectedTextColor;}    
+ 
+    public Color getUnselectedTextColor() {return unselectedTextColor;}
+
+    public float getLineAnimationProgress() {return lineAnimationProgress;}
 }

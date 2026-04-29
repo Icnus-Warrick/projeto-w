@@ -9,26 +9,17 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.ease.Spline;
 
 /**
  * Componente de botão personalizado com animações suaves e estilo minimalista.
- *
- * <p>Esta classe estende JButton para fornecer um botão com linha inferior
- * animada e efeito de zoom no texto ao interagir.</p>
- *
- * <p><b>Recursos:</b></p>
- * <ul>
- *   <li>Linha inferior animada ao passar o mouse ou clicar</li>
- *   <li>Efeito de zoom suave no texto</li>
- *   <li>Feedback visual consistente</li>
- *   <li>Personalização de cores</li>
- *   <li>Design minimalista sem bordas tradicionais</li>
- * </ul>
+ * O WButton é uma extensão do JButton que adiciona uma linha inferior animada e um efeito de zoom no texto ao passar o mouse.
  *
  * @author Warrick
  * @version 1.0.0
@@ -151,20 +142,33 @@ public class WButton extends JButton {
     /**
      * Configura as propriedades iniciais do botão.
      */
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            repaint();
+        }
+    }
+
+    private void applyThemeColors() {
+        setBackground(getThemeColor("WButton.bgColor", DEFAULT_BG_COLOR));
+        setForeground(getThemeColor("WButton.textColor", DEFAULT_TEXT_COLOR));
+        lineColor = getThemeColor("WButton.lineColor", DEFAULT_LINE_COLOR);
+        hoverColor = getThemeColor("WButton.hoverColor", DEFAULT_HOVER_COLOR);
+    }
+
     private void setupButton() {
         // Configuração de borda e cores
         setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
-        setBackground(getThemeColor("WButton.bgColor", DEFAULT_BG_COLOR));
-        setForeground(getThemeColor("WButton.textColor", DEFAULT_TEXT_COLOR));
         setOpaque(false);
         setFocusPainted(false);
         setBorderPainted(false);
         setContentAreaFilled(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
+
         // Inicializa as cores do tema
-        lineColor = getThemeColor("WButton.lineColor", DEFAULT_LINE_COLOR);
-        hoverColor = getThemeColor("WButton.hoverColor", DEFAULT_HOVER_COLOR);
+        applyThemeColors();
 
         // Configura os listeners de mouse
         addMouseListener(new MouseAdapter() {
@@ -370,37 +374,29 @@ public class WButton extends JButton {
             currentScale = 1.0f + ((MAX_TEXT_SCALE - 1.0f) * textScaleProgress);
         }
 
-        // Obtém as métricas da fonte com a escala aplicada
-        g2.setFont(getFont().deriveFont(getFont().getSize() * currentScale));
+        // Usa a fonte no tamanho original — a escala é feita pela transformação
+        g2.setFont(getFont());
         FontMetrics fm = g2.getFontMetrics();
         Rectangle2D textBounds = fm.getStringBounds(text, g2);
 
-        // Calcula a posição centralizada do texto
-        int textX = (int) ((getWidth() / currentScale - textBounds.getWidth() / currentScale) / 2);
-        int textY = (int) ((getHeight() / currentScale - fm.getHeight() / currentScale) / 2 + fm.getAscent() / currentScale);
+        // Posição centralizada do texto no tamanho original (sem escala)
+        float textX = (float) ((getWidth() - textBounds.getWidth()) / 2.0);
+        float textY = (float) ((getHeight() - fm.getHeight()) / 2.0 + fm.getAscent());
 
-        // Aplica transformação para o efeito de zoom suave
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                           RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
                           RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-        
-        // Aplica a transformação de escala a partir do centro
+
+        // Escala a partir do centro exato do componente
         double centerX = getWidth() / 2.0;
         double centerY = getHeight() / 2.0;
-        
-        // Move para o centro, aplica o zoom e depois move de volta
+
         g2.translate(centerX, centerY);
         g2.scale(currentScale, currentScale);
         g2.translate(-centerX, -centerY);
-        
-        // Desenha o texto
+
         g2.drawString(text, textX, textY);
-        
-        // Restaura a transformação
-        g2.translate(centerX, centerY);
-        g2.scale(1/currentScale, 1/currentScale);
-        g2.translate(-centerX, -centerY);
     }
 
     // ============================================ MÉTODOS DE CONFIGURAÇÃO ============================================
@@ -466,39 +462,11 @@ public class WButton extends JButton {
 
     // ============================================ MÉTODOS DE ACESSO ============================================
 
-    /**
-     * Retorna a cor da linha inferior.
-     *
-     * @return Cor da linha
-     */
-    public Color getLineColor() {
-        return lineColor;
-    }
+    public Color getLineColor() {return lineColor;}
 
-    /**
-     * Retorna a cor de destaque ao passar o mouse.
-     *
-     * @return Cor de destaque
-     */
-    public Color getHoverColor() {
-        return hoverColor;
-    }
+    public Color getHoverColor() {return hoverColor;}
 
-    /**
-     * Retorna a localização atual da animação da linha.
-     *
-     * @return Valor entre 0 e 1 representando o progresso da animação
-     */
-    public float getLineAnimationProgress() {
-        return lineAnimationProgress;
-    }
+    public float getLineAnimationProgress() {return lineAnimationProgress;}
 
-    /**
-     * Retorna o progresso atual da animação do texto.
-     *
-     * @return Valor entre 0 e 1 representando o progresso da animação
-     */
-    public float getTextScaleProgress() {
-        return textScaleProgress;
-    }
+    public float getTextScaleProgress() {return textScaleProgress;}
 }

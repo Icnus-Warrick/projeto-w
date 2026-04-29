@@ -8,10 +8,9 @@ import org.pushingpixels.trident.ease.Spline;
 
 /**
  * Componente de label personalizado com suporte a animações de linha inferior interativa.
- *
- * <p>
- * Esta classe estende JLabel para fornecer um label com linha inferior animada
- * ao passar o mouse, com suporte completo para alinhamentos horizontal e vertical.</p>
+ * Este componente estende JLabel e adiciona uma linha inferior que é animada quando o mouse passa sobre o label.
+ * O WLabel é projetado para ser facilmente integrado em interfaces gráficas usando o tema FlatLaf, mas também pode ser usado com outros temas.
+ * O WLabel suporta alinhamento horizontal e vertical do texto, e a linha inferior se ajusta dinamicamente com base no tamanho do texto e nas margens do componente.
  *
  * @author Warrick
  * @version 2.0.0
@@ -118,14 +117,27 @@ public class WLabel extends JLabel {
     /**
      * Configura as propriedades iniciais do label.
      */
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            repaint();
+        }
+    }
+
+    private void applyThemeColors() {
+        setForeground(getThemeColor("WLabel.textColor", DEFAULT_TEXT_COLOR));
+        lineColor = getThemeColor("WLabel.lineColor", DEFAULT_LINE_COLOR);
+    }
+
     private void setupLabel() {
         // Configuração de cores
-        setForeground(getThemeColor("WLabel.textColor", DEFAULT_TEXT_COLOR));
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // Inicializa a cor da linha do tema
-        lineColor = getThemeColor("WLabel.lineColor", DEFAULT_LINE_COLOR);
+        applyThemeColors();
 
         // Listener de mouse
         addMouseListener(new MouseAdapter() {
@@ -301,31 +313,9 @@ public class WLabel extends JLabel {
     }
 
     // ============================================ MÉTODOS DE ACESSO ============================================
+    public Color getLineColor() {return lineColor;}
 
-    /**
-     * Retorna a cor atual da linha inferior do label.
-     *
-     * @return A cor da linha inferior
-     */
-    public Color getLineColor() {
-        return lineColor;
-    }
+    public float getLineAnimationProgress() {return lineAnimationProgress;}
 
-    /**
-     * Retorna o progresso atual da animação da linha inferior.
-     *
-     * @return Um valor entre 0.0 e 1.0
-     */
-    public float getLineAnimationProgress() {
-        return lineAnimationProgress;
-    }
-
-    /**
-     * Verifica se o mouse está sobre o componente.
-     *
-     * @return true se o mouse estiver sobre o componente
-     */
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
+    public boolean isMouseOver() {return mouseOver;
 }

@@ -1,32 +1,34 @@
 package br.com.warrick.swing;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.ease.Spline;
 
 /**
  * Componente de campo de senha personalizado com suporte a animações, rótulo flutuante e validação.
- *
- * <p>Esta classe estende JPasswordField para fornecer um campo de senha com
- * rótulo flutuante, feedback visual consistente e sistema de validação integrado.</p>
- *
- * <p><b>Recursos:</b></p>
- * <ul>
- *   <li>Rótulo flutuante que se move suavemente</li>
- *   <li>Animação de transição ao receber/perder foco</li>
- *   <li>Botão para mostrar/esconder a senha</li>
- *   <li>Feedback visual ao passar o mouse</li>
- *   <li>Sistema de validação com mensagens de erro animadas</li>
- *   <li>Validação de campos obrigatórios (através do método setObrigatorio(true))</li>
- *   <li>Personalização de cores</li>
- *   <li>Suporte a temas FlatLaf</li>
- *   <li>Validação em tempo real</li>
- * </ul>
  *
  * @author Warrick
  * @version 3.2.2
@@ -197,18 +199,31 @@ public class WPasswordField extends JPasswordField {
     /**
      * Configura as propriedades iniciais do campo.
      */
-    private void setupField() {
-        // Configuração de borda e cores (usando tema se disponível)
-        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, EYE_RIGHT_PADDING));
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            repaint();
+        }
+    }
+
+    private void applyThemeColors() {
         setBackground(getThemeColor("WPasswordField.bgColor", DEFAULT_BG_COLOR));
         setForeground(getThemeColor("WPasswordField.textColor", DEFAULT_TEXT_COLOR));
         setCaretColor(getThemeColor("WPasswordField.textColor", DEFAULT_TEXT_COLOR));
+        lineColor = getThemeColor("WPasswordField.lineColor", DEFAULT_LINE_COLOR);
+        hoverColor = getThemeColor("WPasswordField.hoverColor", DEFAULT_HOVER_COLOR);
+    }
+
+    private void setupField() {
+        // Configuração de borda e cores (usando tema se disponível)
+        setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, EYE_RIGHT_PADDING));
         setOpaque(false);
         setEchoChar('•');
 
         // Inicializa as cores customizáveis do tema
-        lineColor = getThemeColor("WPasswordField.lineColor", DEFAULT_LINE_COLOR);
-        hoverColor = getThemeColor("WPasswordField.hoverColor", DEFAULT_HOVER_COLOR);
+        applyThemeColors();
 
         // Inicializa a animação
         initAnimation();
@@ -406,7 +421,6 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE ANIMAÇÃO ============================================
-
     /**
      * Anima a transição do rótulo.
      */
@@ -450,7 +464,6 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE PINTURA ============================================
-
     /**
      * Desenha os componentes visuais do campo.
      */
@@ -726,48 +739,25 @@ public class WPasswordField extends JPasswordField {
     }
 
     // ============================================ MÉTODOS DE ACESSO ============================================
+    public String getLabelText() {return labelText;}
 
-    public String getLabelText() {
-        return labelText;
-    }
+    public boolean isShowAndHide() {return showAndHide;}
 
-    public boolean isShowAndHide() {
-        return showAndHide;
-    }
+    public Color getLineColor() {return lineColor;}
 
-    public Color getLineColor() {
-        return lineColor;
-    }
+    public Color getHoverColor() {return hoverColor;}
 
-    public Color getHoverColor() {
-        return hoverColor;
-    }
+    public float getAnimationLocation() {return animationLocation;}
 
-    public float getAnimationLocation() {
-        return animationLocation;
-    }
+    public float getErrorAnimationLocation() {return errorAnimationLocation;}
 
-    public float getErrorAnimationLocation() {
-        return errorAnimationLocation;
-    }
+    public float getLineAnimationProgress() {return lineAnimationProgress;}
 
-    public float getLineAnimationProgress() {
-        return lineAnimationProgress;
-    }
+    public boolean isObrigatorio() {return obrigatorio;}
 
-    public boolean isObrigatorio() {
-        return obrigatorio;
-    }
+    public boolean hasError() {return hasError;}
 
-    public boolean hasError() {
-        return hasError;
-    }
+    public String getErrorMessage() {return errorMessage;}
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public boolean isPasswordVisible() {
-        return !hidePassword;
-    }
+    public boolean isPasswordVisible() {return !hidePassword;}
 }

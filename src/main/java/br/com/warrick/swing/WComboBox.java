@@ -1,9 +1,30 @@
 package br.com.warrick.swing;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import javax.swing.*;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.PopupMenuEvent;
@@ -11,25 +32,11 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
+
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.ease.Spline;
 /**
  * Componente de combo box personalizado com suporte a animações, rótulo flutuante e validação.
- *
- * <p>Esta classe estende JComboBox para fornecer um combo box com
- * rótulo flutuante, feedback visual consistente e sistema de validação integrado.</p>
- *
- * <p><b>Recursos:</b></p>
- * <ul>
- *   <li>Rótulo flutuante que se move suavemente</li>
- *   <li>Animação de transição ao receber/perder foco</li>
- *   <li>Feedback visual ao passar o mouse</li>
- *   <li>Sistema de validação com mensagens de erro animadas</li>
- *   <li>Validação de campos obrigatórios (através do método setObrigatorio(true))</li>
- *   <li>Personalização de cores</li>
- *   <li>Suporte a temas FlatLaf</li>
- *   <li>Validação em tempo real</li>
- * </ul>
  *
  * @author Warrick
  * @version 3.2.2
@@ -187,16 +194,29 @@ public class WComboBox<E> extends JComboBox<E> {
     /**
      * Configura as propriedades iniciais do combo box.
      */
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (getFont() != null) {
+            applyThemeColors();
+            repaint();
+        }
+    }
+
+    private void applyThemeColors() {
+        setBackground(getThemeColor("WComboBox.bgColor", DEFAULT_BG_COLOR));
+        setForeground(getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR));
+        lineColor = getThemeColor("WComboBox.lineColor", DEFAULT_LINE_COLOR);
+        hoverColor = getThemeColor("WComboBox.hoverColor", DEFAULT_HOVER_COLOR);
+    }
+
     private void setupComboBox() {
         // Configuração de borda e cores (usando tema se disponível)
         setBorder(new EmptyBorder(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT));
-        setBackground(getThemeColor("WComboBox.bgColor", DEFAULT_BG_COLOR));
-        setForeground(getThemeColor("WComboBox.textColor", DEFAULT_TEXT_COLOR));
         setOpaque(false);
 
         // Inicializa as cores customizáveis do tema
-        lineColor = getThemeColor("WComboBox.lineColor", DEFAULT_LINE_COLOR);
-        hoverColor = getThemeColor("WComboBox.hoverColor", DEFAULT_HOVER_COLOR);
+        applyThemeColors();
 
         // Inicializa a animação
         initAnimation();
