@@ -2,9 +2,9 @@
     <h1>📦 Biblioteca de Componentes Swing</h1>
     <p>Componentes Java Swing modernos e altamente personalizáveis para desenvolvimento de interfaces profissionais</p>
     
-    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-    [![Java](https://img.shields.io/badge/Java-8%2B-orange)](https://www.oracle.com/java/)
-    [![GitHub stars](https://img.shields.io/github/stars/Icnus-Warrick/projeto-w?style=social)](https://github.com/Icnus-Warrick/projeto-w/stargazers)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+ [![Java](https://img.shields.io/badge/Java-8%2B-orange)](https://www.oracle.com/java/)
+ [![GitHub stars](https://img.shields.io/github/stars/Icnus-Warrick/projeto-w?style=social)](https://github.com/Icnus-Warrick/projeto-w/stargazers)
 </div>
 
 ## 🎨 Demonstração dos Componentes
