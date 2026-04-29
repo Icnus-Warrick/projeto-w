@@ -160,6 +160,51 @@ email.setToolTipText("Digite seu e-mail");
 email.setBorder(new EmptyBorder(20, 10, 10, 10));
 ```
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha em foco | `Color` | `campo.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `campo.setHoverColor(new Color(100, 180, 220))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `campo.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto digitado | `Color` | `campo.setForeground(Color.DARK_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `campo.setFont(new Font("Arial", Font.PLAIN, 14))` |
+| `setLabelFont(Font)` | Fonte do rótulo flutuante | `Font` | `campo.setLabelFont(new Font("Segoe UI", Font.BOLD, 12))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WTextField campo = new WTextField("Nome Completo");
+
+// Cores personalizadas
+campo.setLineColor(new Color(0, 123, 255)); // Azul Bootstrap
+campo.setHoverColor(new Color(0, 86, 179));
+campo.setBackground(new Color(250, 250, 250));
+campo.setForeground(new Color(33, 37, 41));
+
+// Fontes personalizadas
+campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+campo.setLabelFont(new Font("Segoe UI", Font.BOLD, 12));
+
+// Aplicar após configurar
+campo.revalidate();
+campo.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+
 ## Métodos Principais
 
 ### Validação
@@ -324,9 +369,11 @@ campoCPF.addKeyListener(new KeyAdapter() {
 
 ## Notas de Versão
 
-### v3.2.2 (25/11/2025)
+### v3.4.0 (28/04/2026)
 
 #### Melhorias
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Aprimoramento na animação do rótulo flutuante
 - Suporte a temas personalizados aprimorado
 

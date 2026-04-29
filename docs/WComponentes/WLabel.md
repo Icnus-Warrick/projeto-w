@@ -65,6 +65,51 @@ formulario.add(rotulo, gbc);
 - `setAnimated(boolean animated)`: Habilita/desabilita as animações
 - `setAnimationDuration(int ms)`: Define a duração das animações em milissegundos
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha inferior | `Color` | `label.setLineColor(Color.BLUE)` |
+| `setTextColor(Color)` | Cor do texto | `Color` | `label.setTextColor(Color.DARK_GRAY)` |
+| `setLineBgColor(Color)` | Cor de fundo da linha | `Color` | `label.setLineBgColor(Color.LIGHT_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `label.setFont(new Font("Arial", Font.BOLD, 14))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WLabel label = new WLabel("Título");
+
+// Cores personalizadas
+label.setLineColor(new Color(94, 53, 177)); // Roxo
+label.setTextColor(new Color(33, 37, 41));
+label.setLineBgColor(new Color(200, 200, 200));
+
+// Fonte personalizada
+label.setFont(new Font("Segoe UI", Font.BOLD, 16));
+
+// Comportamento
+label.setAnimated(true);
+label.setAnimationDuration(300);
+
+// Aplicar após configurar
+label.revalidate();
+label.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+
 ## Exemplos Avançados
 
 ### Estilização com CSS (FlatLaf)
@@ -134,8 +179,9 @@ rotulo.setVerticalAlignment(SwingConstants.CENTER);
 - Melhorias na animação da linha
 - Suporte a temas personalizados
 
-### v3.4.0 (2025-11-27)
-- Versão inicial
+### v3.4.0 (28/04/2026)
+- Versão atualizada - padronização com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Linha inferior animada
 - Suporte a alinhamento horizontal
 

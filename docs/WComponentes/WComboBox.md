@@ -129,6 +129,51 @@ combo.setBorder(new EmptyBorder(15, 10, 10, 30)); // top, left, bottom, right
 - Defina `setEditable(true)` para permitir busca nos itens
 - Atualize o `labelText` dinamicamente conforme necessário
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha em foco | `Color` | `combo.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `combo.setHoverColor(new Color(100, 180, 220))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `combo.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto selecionado | `Color` | `combo.setForeground(Color.DARK_GRAY)` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `combo.setFont(new Font("Arial", Font.PLAIN, 14))` |
+| `setLabelFont(Font)` | Fonte do rótulo flutuante | `Font` | `combo.setLabelFont(new Font("Segoe UI", Font.BOLD, 12))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WComboBox<String> combo = new WComboBox<>("Selecione");
+
+// Cores personalizadas
+combo.setLineColor(new Color(94, 53, 177)); // Roxo
+combo.setHoverColor(new Color(69, 39, 160));
+combo.setBackground(new Color(250, 250, 250));
+combo.setForeground(new Color(33, 37, 41));
+
+// Fontes personalizadas
+combo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+combo.setLabelFont(new Font("Segoe UI", Font.BOLD, 12));
+
+// Aplicar após configurar
+combo.revalidate();
+combo.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+
 ## Métodos Principais
 
 ### Validação
@@ -309,9 +354,11 @@ worker.execute();
 
 ## Notas de Versão
 
-### v3.2.2 (26/11/2025)
+### v3.4.0 (28/04/2026)
 
 #### Melhorias
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Implementação inicial do componente WComboBox
 - Suporte a temas FlatLaf
 - Animações de transição suaves

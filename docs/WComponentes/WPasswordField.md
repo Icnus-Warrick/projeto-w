@@ -169,6 +169,59 @@ senha.setToolTipText("Mínimo 6 caracteres");
 senha.setBorder(new EmptyBorder(20, 10, 10, 40)); // Espaço extra à direita para o botão
 ```
 
+### Personalização via Código Externo
+
+Todos os WComponentes suportam personalização de cores e fontes diretamente via código Java, permitindo ajustes dinâmicos em tempo de execução.
+
+#### Cores
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setLineColor(Color)` | Cor da linha em foco | `Color` | `senha.setLineColor(Color.BLUE)` |
+| `setHoverColor(Color)` | Cor ao passar o mouse | `Color` | `senha.setHoverColor(new Color(100, 180, 220))` |
+| `setBackground(Color)` | Cor de fundo | `Color` | `senha.setBackground(Color.WHITE)` |
+| `setForeground(Color)` | Cor do texto digitado | `Color` | `senha.setForeground(Color.DARK_GRAY)` |
+| `setErrorColor(Color)` | Cor das mensagens de erro | `Color` | `senha.setErrorColor(new Color(220, 53, 69))` |
+| `setSuccessColor(Color)` | Cor das mensagens de sucesso | `Color` | `senha.setSuccessColor(new Color(40, 167, 69))` |
+
+#### Fontes
+
+| Método | Descrição | Parâmetro | Exemplo |
+|--------|-----------|-----------|---------|
+| `setFont(Font)` | Fonte do texto | `Font` | `senha.setFont(new Font("Arial", Font.PLAIN, 14))` |
+| `setLabelFont(Font)` | Fonte do rótulo flutuante | `Font` | `senha.setLabelFont(new Font("Segoe UI", Font.BOLD, 12))` |
+
+**Exemplo Completo:**
+```java
+// Personalização completa via código
+WPasswordField senha = new WPasswordField("Senha");
+
+// Cores personalizadas
+senha.setLineColor(new Color(220, 53, 69)); // Vermelho
+senha.setHoverColor(new Color(200, 35, 51));
+senha.setBackground(new Color(250, 250, 250));
+senha.setForeground(new Color(33, 37, 41));
+senha.setErrorColor(new Color(220, 53, 69));
+senha.setSuccessColor(new Color(40, 167, 69));
+
+// Fontes personalizadas
+senha.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+senha.setLabelFont(new Font("Segoe UI", Font.BOLD, 12));
+
+// Botão de mostrar/esconder
+senha.setShowAndHide(true);
+
+// Aplicar após configurar
+senha.revalidate();
+senha.repaint();
+```
+
+**Dicas:**
+- As alterações são aplicadas instantaneamente
+- Use `revalidate()` e `repaint()` após múltiplas alterações
+- As cores podem ser definidas com `new Color(R, G, B)` ou constantes `Color.*`
+- Use `setShowAndHide(true)` para habilitar a visualização da senha
+
 ## Métodos Principais
 
 ### Validação
@@ -430,9 +483,11 @@ try {
 
 ## Notas de Versão
 
-### v3.2.2 (25/11/2025)
+### v3.4.0 (28/04/2026)
 
 #### Melhorias
+- Padronização da versão com todos os WComponentes
+- Suporte a personalização de cores e fontes via código externo
 - Aprimoramento na animação do rótulo flutuante
 - Suporte a temas personalizados aprimorado
 
